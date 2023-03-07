@@ -13,19 +13,43 @@
     plutarch.url = "github:Plutonomicon/plutarch-plutus?ref=95e40b42a1190191d0a07e3e4e938b72e6f75268";
   };
 
-  outputs = inputs@{ self, tooling, ... }: tooling.lib.mkFlake { inherit self; }
-    {
-      imports = [
-        (tooling.lib.mkHaskellFlakeModule1 {
-          project.src = ./.;
-          # project.compiler-nix-name = "ghc8107"; 
-          project.extraHackage = [
-            "${inputs.ply}/ply-core"
-            "${inputs.ply}/ply-plutarch"
-            "${inputs.plutarch}"
-            "${inputs.plutarch}/plutarch-extra"
-          ];
-        })
-      ];
-    };
+  outputs = inputs@{ self, tooling, ... }: 
+    tooling.lib.mkFlake { inherit self; }
+      {
+        imports = [
+          (tooling.lib.mkHaskellFlakeModule1 {
+            project.src = ./.;
+            # project.compiler-nix-name = "ghc8107"; 
+            project.extraHackage = [
+              "${inputs.ply}/ply-core"
+              "${inputs.ply}/ply-plutarch"
+              "${inputs.plutarch}"
+              "${inputs.plutarch}/plutarch-extra"
+            ];
+          })
+        ];
+      };
+
+  # # example exporter nix app
+  # 
+  # let 
+  # script-exporter =
+  #   let
+  #     exporter = self'.packages."mlabs-plutus-template-onchain:exe:exporter";
+  #   in
+  #     pkgs.runCommandLocal "script-exporter" { }
+  #       ''
+  #         ln -s ${exporter}/bin/exporter $out
+  #       '';
+
+  # exported-scripts =
+  #   let
+  #     exporter = self'.packages."mlabs-plutus-template-onchain:exe:exporter";
+  #   in
+  #     pkgs.runCommand "exported-scripts" { }
+  #       ''
+  #         set -e
+  #         mkdir $out
+  #         ${exporter}/bin/exporter
+  #       ''; 
 }
