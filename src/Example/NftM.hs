@@ -3,6 +3,11 @@ module Example.NftM (nftMp) where
 import Plutarch.Api.V1
 import qualified Plutarch.Api.V1.Value as PValue
 import Plutarch.Prelude
+import Plutarch.Api.V1.Contexts
+import Plutarch.Api.V1.Scripts
+
+alwaysSucceeds :: Term s (PAsData PDatum :--> PAsData PRedeemer :--> PAsData PScriptContext :--> PUnit)
+alwaysSucceeds = plam $ \datm redm ctx -> pconstant ()
 
 nftMp :: ClosedTerm (PTxOutRef :--> PTokenName :--> PMintingPolicy)
 nftMp = plam $ \ref tn _ ctx' -> popaque $
