@@ -1,16 +1,16 @@
-module Example.NftM (nftMp) where
+module Example.NftM (alwaysSucceeds, nftMp) where
 
 import Plutarch.Api.V1
-import qualified Plutarch.Api.V1.Value as PValue
-import Plutarch.Prelude
 import Plutarch.Api.V1.Contexts
 import Plutarch.Api.V1.Scripts
+import qualified Plutarch.Api.V1.Value as PValue
+import Plutarch.Prelude
 
-alwaysSucceeds :: Term s (PAsData PDatum :--> PAsData PRedeemer :--> PAsData PScriptContext :--> PUnit)
-alwaysSucceeds = plam $ \datm redm ctx -> pconstant ()
+alwaysSucceeds :: Term s PValidator
+alwaysSucceeds = plam $ \_ _ _ -> popaque $ pconstant ()
 
-nftMp :: ClosedTerm (PTxOutRef :--> PTokenName :--> PMintingPolicy)
-nftMp = plam $ \ref tn _ ctx' -> popaque $
+nftMp :: ClosedTerm (PScriptHash :--> PTxOutRef :--> PTokenName :--> PMintingPolicy)
+nftMp = plam $ \hash ref tn _ ctx' -> popaque $
   unTermCont $ do
     ctx <- tcont $ pletFields @'["txInfo", "purpose"] ctx'
     PMinting mintFlds <- tcont . pmatch $ getField @"purpose" ctx

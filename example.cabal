@@ -23,11 +23,12 @@ common common-configs
 
 common common-ghc-opts
   ghc-options:
-    -Wall -Wcompat -Wincomplete-uni-patterns
-    -Wmissing-deriving-strategies -Wredundant-constraints
-    -Wmissing-home-modules -Wmissing-export-lists -fwarn-unused-imports
-    -Wno-unticked-promoted-constructors
+    -Wcompat -Wincomplete-uni-patterns -Wmissing-deriving-strategies
+    -Wredundant-constraints -Wmissing-home-modules
+    -Wmissing-export-lists -Wno-unticked-promoted-constructors
 
+  -- -Wall
+  -- -fwarn-unused-imports
   if !flag(dev)
     ghc-options: -Werror
 
@@ -106,17 +107,24 @@ library
   exposed-modules: Example.NftM
   hs-source-dirs:  src
 
-executable example-compile
-  import:         common-lang
-  import:         common-configs
-  import:         common-deps
-  import:         common-ghc-opts
-  main-is:        Main.hs
+library exporter-plutarch
+  import:          common-lang
+  import:          common-configs
+  import:          common-deps
+  import:          common-ghc-opts
+  exposed-modules: Exporter
   build-depends:
+    , aeson
+    , aeson-pretty
+    , base16-bytestring
+    , bytestring
+    , containers
     , directory
     , example
     , filepath
+    , mtl
+    , ply-core
     , ply-plutarch
 
-  hs-source-dirs: compiler-app
-  ghc-options:    -threaded -rtsopts -with-rtsopts=-N
+  hs-source-dirs:  exporter-plutarch
+  ghc-options:     -threaded -rtsopts -with-rtsopts=-N
