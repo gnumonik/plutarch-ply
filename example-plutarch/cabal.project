@@ -1,0 +1,8 @@
+index-state: 2022-12-13T00:00:00Z
+
+packages:
+  ./onchain
+  ./offchain
+
+-- We never, ever, want this.
+write-ghc-environment-files: never

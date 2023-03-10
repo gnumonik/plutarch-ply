@@ -1,5 +1,5 @@
 cabal-version: 3.0
-name:          example
+name:          example-plutarch-offchain
 version:       0.0.1
 synopsis:      TODO
 description:   TODO
@@ -100,31 +100,10 @@ common common-lang
 -- Build targets
 
 library
-  import:          common-lang
-  import:          common-configs
-  import:          common-deps
-  import:          common-ghc-opts
-  exposed-modules: Example.NftM
-  hs-source-dirs:  src
+  import:         common-lang
+  import:         common-configs
+  import:         common-deps
+  import:         common-ghc-opts
 
-library exporter-plutarch
-  import:          common-lang
-  import:          common-configs
-  import:          common-deps
-  import:          common-ghc-opts
-  exposed-modules: Exporter
-  build-depends:
-    , aeson
-    , aeson-pretty
-    , base16-bytestring
-    , bytestring
-    , containers
-    , directory
-    , example
-    , filepath
-    , mtl
-    , ply-core
-    , ply-plutarch
-
-  hs-source-dirs:  exporter-plutarch
-  ghc-options:     -threaded -rtsopts -with-rtsopts=-N
+  --  exposed-modules: NftM
+  hs-source-dirs: src

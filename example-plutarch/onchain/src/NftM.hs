@@ -1,4 +1,4 @@
-module Example.NftM (alwaysSucceeds, nftMp) where
+module NftM (alwaysSucceeds, nftMp) where
 
 import Plutarch.Api.V1
 import Plutarch.Api.V1.Contexts

@@ -3580,11 +3580,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1678268259,
-        "narHash": "sha256-q+ZWNJfXKgIKwsZBir0yXrmIV/4tOv5BflxDAfGISps=",
+        "lastModified": 1678298120,
+        "narHash": "sha256-iaV5xqgn29xy765Js3EoZePQyZIlLZA3pTYtTnKkejg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "90ef5c3c337d8d9f0c97e7641ece70a41f6c16a2",
+        "rev": "1e383aada51b416c6c27d4884d2e258df201bc11",
         "type": "github"
       },
       "original": {
@@ -5139,11 +5139,11 @@
         "plutus": "plutus_2"
       },
       "locked": {
-        "lastModified": 1677153910,
-        "narHash": "sha256-wHQfFUVQH4yl37aIjaA7nutHUoeyIbLka1QaYDAeNeY=",
+        "lastModified": 1678298798,
+        "narHash": "sha256-9eYQR57xTRt2THnobaqKjX9RpHGfpSqar7W5Bpp/ftg=",
         "owner": "mlabs-haskell",
         "repo": "mlabs-tooling.nix",
-        "rev": "fa04ff4c5cca8255202fff0b65ceee3e1e106343",
+        "rev": "f99926babf96ccab095e918b4997e9054ea4e960",
         "type": "github"
       },
       "original": {

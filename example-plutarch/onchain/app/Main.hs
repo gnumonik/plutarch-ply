@@ -1,11 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module Exporter (
-  save,
-  save_,
-  type App,
-  runExporter,
-) where
+module Main (main) where
 
 import System.FilePath ((</>))
 
@@ -33,7 +28,7 @@ import Data.Kind (Type)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
-import Example.NftM (alwaysSucceeds, nftMp)
+
 import Ply.Core.Serialize (writeEnvelope)
 import System.Directory (createDirectoryIfMissing)
 
@@ -55,6 +50,14 @@ import PlutusLedgerApi.V1 (ScriptHash (ScriptHash, getScriptHash))
 import PlutusTx.Prelude (fromBuiltin)
 import Ply.Core.Deserialize (readEnvelope)
 import UntypedPlutusCore (DeBruijn, DefaultFun, DefaultUni, Program)
+
+import NftM (alwaysSucceeds, nftMp)
+
+main :: IO ()
+main = runExporter "compiled-scripts" $ do
+  hash <- save "always succeeds" alwaysSucceeds
+  save_ "nft (hash applied)" (nftMp # pconstant hash)
+  save_ "nft (no hash applied)" nftMp
 
 type UPLCProgram = Program DeBruijn DefaultUni DefaultFun ()
 
@@ -112,12 +115,6 @@ runExporter path exporter = do
     writeIndex = LBS.writeFile filepath . encodePretty
       where
         filepath = path </> "Index.json"
-
-main :: IO ()
-main = runExporter "compiled-scripts" $ do
-  hash <- save "always succeeds" alwaysSucceeds
-  save_ "nft (hash applied)" (nftMp # pconstant hash)
-  save_ "nft (no hash applied)" nftMp
 
 runImporter ::
   FilePath -> -- Path to the *directory* that contains the serialized scripts + Index.json
